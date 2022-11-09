@@ -45,7 +45,7 @@ async function run(){
 
 
           
-            app.get(`/reviewServices/:id`, async (req, res) => {
+            app.get(`/addServices/:id`, async (req, res) => {
                 const id = req.params.id;
                 const query = { _id: ObjectId(id) };
                 const resultById = await serviceCollection.findOne(query);
