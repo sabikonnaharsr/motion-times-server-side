@@ -21,9 +21,6 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
-
-
-
 // function starts
 async function run() {
   const serviceCollection = client
@@ -76,7 +73,7 @@ async function run() {
     );
 
     //orders get all orders from client
-    app.post("/clientReview", async (req, res) => {
+    app.post("/reviewByMail", async (req, res) => {
       const user = req.body;
       const result = await weddingCollection.insertOne(user);
       res.send(result);
@@ -96,8 +93,6 @@ async function run() {
       res.send(result);
     });
 
-
-
     // // delete
     // app.delete("/deleteReview/:id", async (req, res) => {
     //     const id = req.params.id;
@@ -107,22 +102,19 @@ async function run() {
     //     console.log(result)
     // });
 
-
-
     //review client sabikonnahar
-    app.get("/review", async (req, res) => {
+    app.get("/reviewByMail", async (req, res) => {
       let query = {};
       if (req.query.email) {
         query = {
           email: req.query.email,
         };
       }
+      console.log(query);
       const cursor = weddingCollection.find(query);
       const review = await cursor.toArray();
       res.send(review);
     });
-
-
 
     //all client reviews sabikonnahar
     app.get("/allReview", async (req, res) => {
@@ -137,17 +129,13 @@ async function run() {
 }
 run().catch((e) => console.error(e));
 
-
 app.get("/", (req, res) => {
   res.send("sequel extract is running");
 });
 
-
 app.listen(port, () => {
   console.log(`Sequel Extract is running${port}`);
 });
-
-
 
 //remove review
 
